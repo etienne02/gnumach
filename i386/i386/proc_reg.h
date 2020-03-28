@@ -71,6 +71,11 @@
 #define	CR4_OSXSAVE	0x40000		/* Operating System Support for XSAVE
 					 * and XRSTOR instructions */
 
+
+/* Extended Feature Enable Register */
+#define EFER_MSR	0xc0000080	/* extended feature register */
+#define EFER_LME	0x0008		/* Long mode enable */
+
 #ifndef	__ASSEMBLER__
 #ifdef	__GNUC__
 
