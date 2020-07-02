@@ -159,7 +159,7 @@ biosmem_register_boot_data(phys_addr_t start, phys_addr_t end,
         boot_panic(biosmem_panic_inval_boot_data);
     }
 
-    if (biosmem_nr_boot_data == ARRAY_SIZE(biosmem_boot_data_array)) {
+    if (biosmem_nr_boot_data >= ARRAY_SIZE(biosmem_boot_data_array)) {
         boot_panic(biosmem_panic_too_many_boot_data);
     }
 
