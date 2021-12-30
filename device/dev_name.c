@@ -90,26 +90,6 @@ nomap(dev_t dev, vm_offset_t off, int prot)
 }
 
 /*
- * Name comparison routine.
- * Compares first 'len' characters of 'src'
- * with 'target', which is zero-terminated.
- * Returns TRUE if strings are equal:
- *   src and target are equal in first 'len' characters
- *   next character of target is 0 (end of string).
- */
-boolean_t __attribute__ ((pure))
-name_equal(src, len, target)
-	const char 	*src;
-	int		len;
-	const char 	*target;
-{
-	while (--len >= 0)
-	    if (*src++ != *target++)
-		return FALSE;
-	return *target == 0;
-}
-
-/*
  * device name lookup
  */
 boolean_t dev_name_lookup(
@@ -159,7 +139,7 @@ boolean_t dev_name_lookup(
 
 	found = FALSE;
 	dev_search(dev) {
-	    if (name_equal(name, len, dev->d_name)) {
+	    if (strncmp(name, dev->d_name, len)) {
 		found = TRUE;
 		break;
 	    }
@@ -169,7 +149,7 @@ boolean_t dev_name_lookup(
 	    dev_indirect_t	di;
 
 	    dev_indirect_search(di) {
-		if (name_equal(name, len, di->d_name)) {
+		if (strncmp(name, di->d_name, len)) {
 		    /*
 		     * Return device and unit from indirect vector.
 		     */
